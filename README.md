@@ -1,1 +1,1 @@
-# football_league
+# football league statistics repository
