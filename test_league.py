@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from selenium.webdriver.firefox.webdriver import WebDriver
-from selenium import webdriver
-
-# Указываем полный путь к geckodriver.exe на вашем ПК.
-# driver = webdriver.Firefox('e:\\1\\geckodriver.exe')
-# driver.get("http://www.google.com")
+# from selenium.common.exceptions import ElementClickInterceptedException
+from selenium.common.exceptions import NoSuchElementException
 import unittest
+
+import time
+
 
 class test_league(unittest.TestCase):
 
@@ -20,18 +20,27 @@ class test_league(unittest.TestCase):
     def logout(self):
         pass
 
-    def test_test_league(self):
+    def is_link_text_present(self):
         wd = self.wd
-        wd.get('https://www.myscore.com.ua')
-        # self.login(self)
+        try:
+            wd.find_element_by_link_text('Показать больше матчей').click()
+            return True
+        except NoSuchElementException:
+            return False
 
-    def open_page(self):
-        # open home page or league page
-        pass
+
+    def test_league(self):
+        wd = self.wd
+        self.open_page('https://www.myscore.com.ua/football/russia/premier-league-2017-2018')
+        while self.is_link_text_present():
+            time.sleep(2)
+
+    def open_page(self, url):
+        wd = self.wd
+        wd.get(url)
 
     def tearDown(self):
         self.wd.quit()
-
 
 if __name__ == '__main__':
     unittest.main()
