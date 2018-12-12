@@ -13,27 +13,37 @@ class test_league(unittest.TestCase):
         self.wd = WebDriver()
         self.wd.implicitly_wait(5)
 
-    def login(self):
-        # login
-        pass
-
-    def logout(self):
-        pass
-
-    def is_link_text_present(self):
+    def is_link_text_present(self, text=None):
         wd = self.wd
         try:
-            wd.find_element_by_link_text('Показать больше матчей').click()
+            wd.find_element_by_link_text(text).click()
             return True
         except NoSuchElementException:
             return False
 
-
     def test_league(self):
         wd = self.wd
         self.open_page('https://www.myscore.com.ua/football/russia/premier-league-2017-2018')
-        while self.is_link_text_present():
+        while self.is_link_text_present('Показать больше матчей'):
             time.sleep(2)
+
+        zzz = wd.find_element_by_class_name('soccer').find_element_by_tag_name('tbody').find_element_by_tag_name('tr')
+
+        if zzz.find_element_by_class_name('event_round'):
+            self.save_f(zzz.text)
+        else:
+            
+
+
+        # class ="event_round" > < td colspan="6" > Финал < / td > < / tr >
+        # zzz = zzz.find_element_by_tag_name('tr')
+
+    def save_f(self, text):
+        handle = open("output.txt", "w")
+        handle.write(text)
+        handle.close()
+
+
 
     def open_page(self, url):
         wd = self.wd

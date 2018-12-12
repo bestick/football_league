@@ -12,13 +12,13 @@
     <session id="1353031255">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="10" />
+          <entry key="project.closed" value="11" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.5" value="2" />
-          <entry key="project.open.time.6" value="4" />
-          <entry key="project.open.time.7" value="2" />
-          <entry key="project.opened" value="10" />
+          <entry key="project.open.time.6" value="5" />
+          <entry key="project.open.time.7" value="3" />
+          <entry key="project.opened" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -34,12 +34,12 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="Python Console" value="5" />
-          <entry key="py" value="604" />
+          <entry key="py" value="791" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="609" />
+          <entry key="Python" value="796" />
         </counts>
       </usages-collector>
     </session>
@@ -49,12 +49,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test_league.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
+            <state relative-caret-position="222">
+              <caret line="34" column="12" lean-forward="true" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
               <folding>
                 <element signature="e#24#82#0" expanded="true" />
-                <marker date="1544465499047" expanded="true" signature="309:310" ph="..." />
-                <marker date="1544465499047" expanded="true" signature="724:914" ph="..." />
+                <marker date="1544643391582" expanded="true" signature="309:310" ph="..." />
+                <marker date="1544643391582" expanded="true" signature="627:1332" ph="..." />
+                <marker date="1544643391582" expanded="true" signature="1234:1324" ph="..." />
               </folding>
             </state>
           </provider>
@@ -94,7 +95,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1620" />
@@ -123,7 +124,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python tests.pytest for test_league.test_league">
+  <component name="RunManager" selected="Python tests.pytest for test_league.test_league.test_league">
     <configuration name="pytest for test_league.league" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="football_league" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -208,8 +209,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.pytest for test_league.test_league" />
         <item itemvalue="Python tests.pytest for test_league.test_league.test_league" />
+        <item itemvalue="Python tests.pytest for test_league.test_league" />
         <item itemvalue="Python tests.pytest for test_league.test_league.test_test_league" />
         <item itemvalue="Python tests.pytest for test_league.test_league.test_league" />
         <item itemvalue="Python tests.pytest for test_league.league" />
@@ -230,46 +231,47 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_for_test_league_test_league_test_league - 2018.12.10 at 20h 38m 41s.xml">
+    <history-entry file="pytest_for_test_league_test_league_test_league - 2018.12.12 at 19h 22m 38s.xml">
       <configuration name="pytest for test_league.test_league.test_league" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_league_test_league_test_league - 2018.12.10 at 20h 40m 04s.xml">
+    <history-entry file="pytest_for_test_league_test_league_test_league - 2018.12.12 at 20h 32m 05s.xml">
       <configuration name="pytest for test_league.test_league.test_league" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_league_test_league_test_league - 2018.12.10 at 20h 56m 20s.xml">
+    <history-entry file="pytest_for_test_league_test_league_test_league - 2018.12.12 at 20h 33m 52s.xml">
       <configuration name="pytest for test_league.test_league.test_league" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_league_test_league_test_league - 2018.12.10 at 20h 58m 36s.xml">
+    <history-entry file="pytest_for_test_league_test_league_test_league - 2018.12.12 at 20h 35m 45s.xml">
       <configuration name="pytest for test_league.test_league.test_league" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_league_test_league_test_league - 2018.12.10 at 21h 00m 54s.xml">
+    <history-entry file="pytest_for_test_league_test_league_test_league - 2018.12.12 at 21h 20m 37s.xml">
       <configuration name="pytest for test_league.test_league.test_league" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_league_test_league_test_league - 2018.12.10 at 21h 03m 15s.xml">
+    <history-entry file="pytest_for_test_league_test_league_test_league - 2018.12.12 at 21h 29m 03s.xml">
       <configuration name="pytest for test_league.test_league.test_league" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_league_test_league_test_league - 2018.12.10 at 21h 03m 50s.xml">
+    <history-entry file="pytest_for_test_league_test_league_test_league - 2018.12.12 at 21h 32m 35s.xml">
       <configuration name="pytest for test_league.test_league.test_league" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_league_test_league_test_league - 2018.12.10 at 21h 04m 40s.xml">
+    <history-entry file="pytest_for_test_league_test_league_test_league - 2018.12.12 at 21h 45m 39s.xml">
       <configuration name="pytest for test_league.test_league.test_league" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_league_test_league_test_league - 2018.12.10 at 21h 07m 29s.xml">
+    <history-entry file="pytest_for_test_league_test_league_test_league - 2018.12.12 at 21h 54m 57s.xml">
       <configuration name="pytest for test_league.test_league.test_league" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_league_test_league - 2018.12.10 at 21h 12m 56s.xml">
-      <configuration name="pytest for test_league.test_league" configurationId="tests" />
+    <history-entry file="pytest_for_test_league_test_league_test_league - 2018.12.12 at 21h 57m 19s.xml">
+      <configuration name="pytest for test_league.test_league.test_league" configurationId="tests" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1620" height="920" extended-state="0" />
+    <frame x="-8" y="-8" width="1620" height="920" extended-state="1" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.24968395" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32909784" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32909784" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32909784" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39898348" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -330,12 +332,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test_league.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
+        <state relative-caret-position="222">
+          <caret line="34" column="12" lean-forward="true" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
           <folding>
             <element signature="e#24#82#0" expanded="true" />
-            <marker date="1544465499047" expanded="true" signature="309:310" ph="..." />
-            <marker date="1544465499047" expanded="true" signature="724:914" ph="..." />
+            <marker date="1544643391582" expanded="true" signature="309:310" ph="..." />
+            <marker date="1544643391582" expanded="true" signature="627:1332" ph="..." />
+            <marker date="1544643391582" expanded="true" signature="1234:1324" ph="..." />
           </folding>
         </state>
       </provider>
