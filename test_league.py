@@ -27,23 +27,36 @@ class test_league(unittest.TestCase):
         while self.is_link_text_present('Показать больше матчей'):
             time.sleep(2)
 
-        zzz = wd.find_element_by_class_name('soccer').find_element_by_tag_name('tbody').find_element_by_tag_name('tr')
-
-        if zzz.find_element_by_class_name('event_round'):
-            self.save_f(zzz.text)
-        else:
-            
+        tr_s = wd.find_element_by_class_name('soccer').find_element_by_tag_name('tbody').find_elements_by_tag_name('tr')
 
 
-        # class ="event_round" > < td colspan="6" > Финал < / td > < / tr >
-        # zzz = zzz.find_element_by_tag_name('tr')
+        for ij in range(len(tr_s)):
 
-    def save_f(self, text):
-        handle = open("output.txt", "w")
-        handle.write(text)
-        handle.close()
+            class_name = tr_s[ij].get_attribute('class')
+            if class_name in ['odd stage-finished', 'even stage-finished', 'even no-border-bottom stage-finished', 'odd no-border-bottom stage-finished']:
+                self.match_data(tr_s[ij])
+            elif class_name == 'event_round':
+                print(' ')
+                print('-----------------------')
+                print('event_round')
+            else:
+                print('Паршивая ситуация')
 
 
+
+
+    def match_data(self, tr):
+
+        print('')
+        print('===========')
+        print('Имя класса tr:', tr.get_attribute('class'))
+        print('id матча:', tr.get_attribute('id'))
+        td_s = tr.find_elements_by_tag_name('td')
+
+        print('Начало в:', td_s[1].text)
+        print('Team home:', td_s[2].find_element_by_tag_name('span').text)
+        print('Team away:', td_s[3].find_element_by_tag_name('span').text)
+        print('Счет:', td_s[4].text)
 
     def open_page(self, url):
         wd = self.wd
