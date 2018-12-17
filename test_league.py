@@ -11,6 +11,7 @@ class test_league(unittest.TestCase):
     def setUp(self):
         self.wd = WebDriver()
         self.wd.implicitly_wait(5)
+        self.ids = []
 
     def is_link_text_present(self, text=None):
         wd = self.wd
@@ -26,10 +27,15 @@ class test_league(unittest.TestCase):
         while self.is_link_text_present('Показать больше матчей'):
             time.sleep(1)
 
+        # zzcc = wd.find_element_by_id('fs - results')
         tables = wd.find_elements_by_class_name('soccer')
+        print('len tables:', len(tables))
 
-        for ij in range(len(tables)):
+        for ij in range(1,len(tables)):
             tbody = tables[ij].find_element_by_tag_name('tbody')
+            # lll = tbody.get_attribute('innerHTML')
+            # print('xxxx======', lll)
+
             self.tour_data(tbody)
 
         # self.open_page('https://www.myscore.com.ua/match/UDoUtqRL/#match-summary')
