@@ -27,9 +27,27 @@ class test_league(unittest.TestCase):
         while self.is_link_text_present('Показать больше матчей'):
             time.sleep(1)
 
-        # zzcc = wd.find_element_by_id('fs - results')
+        # zzcc = wd.find_element_by_class_name('fs-table tournament-page')
+        # lll = zzcc.get_attribute('innerHTML')
+        # print('len zzcc:', len(zzcc))
+
+
         tables = wd.find_elements_by_class_name('soccer')
+        lll = tables[0].get_attribute('innerHTML')
         print('len tables:', len(tables))
+
+
+
+        # print('000:==', lll)
+        #
+        # lll = tables[1].get_attribute('innerHTML')
+        # print('len tables:', len(tables))
+        # print('111:==', lll)
+        #
+        # lll = tables[2].get_attribute('innerHTML')
+        # print('len tables:', len(tables))
+        # print('222:==', lll)
+
 
         for ij in range(1,len(tables)):
             tbody = tables[ij].find_element_by_tag_name('tbody')
@@ -47,18 +65,22 @@ class test_league(unittest.TestCase):
             class_name = tr_s[ij].get_attribute('class')
 
             if class_name[-14:] == 'stage-finished':
-                self.match_data(tr_s[ij])
+                self.match_data(tr_s[ij], round_name)
             elif class_name == 'event_round':
+                round_name = tr_s[ij].text
+
                 print(' ')
                 print('-----------------------')
-                print('event_round')
+                print('event_round:== ', round_name)
             else:
                 print('Паршивая ситуация')
 
-    def match_data(self, tr):
+    def match_data(self, tr, name):
+
         print('')
         print('===========')
         print('Имя класса tr:', tr.get_attribute('class'))
+        print('Тур:', name)
         id = tr.get_attribute('id')
         print('id матча:', id)
         td_s = tr.find_elements_by_tag_name('td')
