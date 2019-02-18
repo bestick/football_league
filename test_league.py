@@ -36,8 +36,6 @@ class test_league(unittest.TestCase):
         lll = tables[0].get_attribute('innerHTML')
         print('len tables:', len(tables))
 
-
-
         # print('000:==', lll)
         #
         # lll = tables[1].get_attribute('innerHTML')
@@ -84,12 +82,20 @@ class test_league(unittest.TestCase):
         id = tr.get_attribute('id')
         print('id матча:', id)
         td_s = tr.find_elements_by_tag_name('td')
+        start_time = td_s[1].text
+        home = td_s[2].find_element_by_tag_name('span').text
+        away = td_s[3].find_element_by_tag_name('span').text
+        score = td_s[4].text
+        url = 'https://www.myscore.com.ua/match/' + id[4:] + '/#match-summary'
+        print('Начало в:', start_time)
+        print('Team home:', home)
+        print('Team away:', away)
+        print('Счет:', score)
+        # https: // www.myscore.com.ua / match / 0jHHqppJ /  # match-summary
+        print('Url на матч:', url)
+        # if id[4:] == '0jHHqppJ':
+        #     self.open_page('https://www.myscore.com.ua/football/russia/premier-league-2016-2017')
 
-        print('Начало в:', td_s[1].text)
-        print('Team home:', td_s[2].find_element_by_tag_name('span').text)
-        print('Team away:', td_s[3].find_element_by_tag_name('span').text)
-        print('Счет: ', td_s[4].text)
-        print('Url на матч: ', id[4:])
 
     def open_page(self, url):
         wd = self.wd
