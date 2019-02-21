@@ -58,12 +58,15 @@ class test_league(unittest.TestCase):
         # time.sleep(3)
 
     def tour_data(self, tbody):
+        tour = {}
         tr_s = tbody.find_elements_by_tag_name('tr')
         for ij in range(len(tr_s)):
             class_name = tr_s[ij].get_attribute('class')
 
             if class_name[-14:] == 'stage-finished':
-                self.match_data(tr_s[ij], round_name)
+                if round_name not in tour:
+                    tour[round_name] = []
+                tour[round_name].append(self.match_data(tr_s[ij], round_name))
             elif class_name == 'event_round':
                 round_name = tr_s[ij].text
 
@@ -72,6 +75,8 @@ class test_league(unittest.TestCase):
                 print('event_round:== ', round_name)
             else:
                 print('Паршивая ситуация')
+
+        return tour
 
     def match_data(self, tr, name):
 
@@ -87,6 +92,15 @@ class test_league(unittest.TestCase):
         away = td_s[3].find_element_by_tag_name('span').text
         score = td_s[4].text
         url = 'https://www.myscore.com.ua/match/' + id[4:] + '/#match-summary'
+
+        internals = {}
+        internals['tour'] = name
+        internals['time'] = start_time
+        internals['home'] = home
+        internals['away'] = away
+        internals['score'] = score
+        match = {id: internals}
+
         print('Начало в:', start_time)
         print('Team home:', home)
         print('Team away:', away)
@@ -95,6 +109,7 @@ class test_league(unittest.TestCase):
         print('Url на матч:', url)
         # if id[4:] == '0jHHqppJ':
         #     self.open_page('https://www.myscore.com.ua/football/russia/premier-league-2016-2017')
+        return match
 
 
     def open_page(self, url):
