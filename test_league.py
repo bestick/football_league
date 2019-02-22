@@ -46,27 +46,27 @@ class test_league(unittest.TestCase):
         # print('len tables:', len(tables))
         # print('222:==', lll)
 
-
+        season = []
         for ij in range(1,len(tables)):
             tbody = tables[ij].find_element_by_tag_name('tbody')
             # lll = tbody.get_attribute('innerHTML')
             # print('xxxx======', lll)
-
-            self.tour_data(tbody)
-
+            season.append(self.tour_data(tbody))
+        print(season[0])
+        print(season[1])
         # self.open_page('https://www.myscore.com.ua/match/UDoUtqRL/#match-summary')
         # time.sleep(3)
 
     def tour_data(self, tbody):
-        tour = {}
+        tours = {}
         tr_s = tbody.find_elements_by_tag_name('tr')
         for ij in range(len(tr_s)):
             class_name = tr_s[ij].get_attribute('class')
 
             if class_name[-14:] == 'stage-finished':
-                if round_name not in tour:
-                    tour[round_name] = []
-                tour[round_name].append(self.match_data(tr_s[ij], round_name))
+                if round_name not in tours:
+                    tours[round_name] = []
+                tours[round_name].append(self.match_data(tr_s[ij], round_name))
             elif class_name == 'event_round':
                 round_name = tr_s[ij].text
 
@@ -76,7 +76,7 @@ class test_league(unittest.TestCase):
             else:
                 print('Паршивая ситуация')
 
-        return tour
+        return tours
 
     def match_data(self, tr, name):
 
