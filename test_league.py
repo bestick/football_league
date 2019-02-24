@@ -33,18 +33,8 @@ class test_league(unittest.TestCase):
 
 
         tables = wd.find_elements_by_class_name('soccer')
-        lll = tables[0].get_attribute('innerHTML')
+        # lll = tables[0].get_attribute('innerHTML')
         print('len tables:', len(tables))
-
-        # print('000:==', lll)
-        #
-        # lll = tables[1].get_attribute('innerHTML')
-        # print('len tables:', len(tables))
-        # print('111:==', lll)
-        #
-        # lll = tables[2].get_attribute('innerHTML')
-        # print('len tables:', len(tables))
-        # print('222:==', lll)
 
         season = []
         for ij in range(1,len(tables)):
@@ -54,8 +44,17 @@ class test_league(unittest.TestCase):
             season.append(self.tour_data(tbody))
         print(season[0])
         print(season[1])
-        # self.open_page('https://www.myscore.com.ua/match/UDoUtqRL/#match-summary')
-        # time.sleep(3)
+
+
+    def test_match(self):
+        wd = self.wd
+        zzz = {'Финал': [{'g_1_2iFXsPBF': {'tour': 'Финал', 'time': '20.05. 21:00', 'home': 'Анжи', 'away': 'Енисей ', 'score': '4 : 3', 'url': 'https://www.myscore.com.ua/match/2iFXsPBF/#match-summary'}}, {'g_1_UDoUtqRL': {'tour': 'Финал', 'time': '20.05. 18:00', 'home': 'Тамбов', 'away': 'Амкар ', 'score': '0 : 1', 'url': 'https://www.myscore.com.ua/match/UDoUtqRL/#match-summary'}}, {'g_1_O0GTr5d9': {'tour': 'Финал', 'time': '17.05. 17:30', 'home': 'Амкар', 'away': 'Тамбов', 'score': '2 : 0', 'url': 'https://www.myscore.com.ua/match/O0GTr5d9/#match-summary'}}, {'g_1_UwHPqos3': {'tour': 'Финал', 'time': '17.05. 15:00', 'home': 'Енисей', 'away': 'Анжи', 'score': '3 : 0', 'url': 'https://www.myscore.com.ua/match/UwHPqos3/#match-summary'}}]}
+        url = zzz['Финал'][0]['g_1_2iFXsPBF']['url']
+        self.open_page(url)
+        time.sleep(3)
+
+        # print(url)
+
 
     def tour_data(self, tbody):
         tours = {}
@@ -94,11 +93,13 @@ class test_league(unittest.TestCase):
         url = 'https://www.myscore.com.ua/match/' + id[4:] + '/#match-summary'
 
         internals = {}
+        internals['id'] = id
         internals['tour'] = name
         internals['time'] = start_time
         internals['home'] = home
         internals['away'] = away
         internals['score'] = score
+        internals['url'] = url
         match = {id: internals}
 
         print('Начало в:', start_time)
