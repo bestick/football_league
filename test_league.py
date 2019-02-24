@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from selenium.webdriver.firefox.webdriver import WebDriver
+from selenium.webdriver.firefox.webdriver import WebDriver
+# from selenium.webdriver.firefox.webelement import FirefoxWebElement
 # from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.common.exceptions import NoSuchElementException
 import unittest
@@ -10,6 +12,7 @@ class test_league(unittest.TestCase):
 
     def setUp(self):
         self.wd = WebDriver()
+        # self.we = FirefoxWebElement()
         self.wd.implicitly_wait(5)
         self.ids = []
 
@@ -47,13 +50,22 @@ class test_league(unittest.TestCase):
 
 
     def test_match(self):
-        wd = self.wd
-        zzz = {'Финал': [{'g_1_2iFXsPBF': {'tour': 'Финал', 'time': '20.05. 21:00', 'home': 'Анжи', 'away': 'Енисей ', 'score': '4 : 3', 'url': 'https://www.myscore.com.ua/match/2iFXsPBF/#match-summary'}}, {'g_1_UDoUtqRL': {'tour': 'Финал', 'time': '20.05. 18:00', 'home': 'Тамбов', 'away': 'Амкар ', 'score': '0 : 1', 'url': 'https://www.myscore.com.ua/match/UDoUtqRL/#match-summary'}}, {'g_1_O0GTr5d9': {'tour': 'Финал', 'time': '17.05. 17:30', 'home': 'Амкар', 'away': 'Тамбов', 'score': '2 : 0', 'url': 'https://www.myscore.com.ua/match/O0GTr5d9/#match-summary'}}, {'g_1_UwHPqos3': {'tour': 'Финал', 'time': '17.05. 15:00', 'home': 'Енисей', 'away': 'Анжи', 'score': '3 : 0', 'url': 'https://www.myscore.com.ua/match/UwHPqos3/#match-summary'}}]}
-        url = zzz['Финал'][0]['g_1_2iFXsPBF']['url']
-        self.open_page(url)
-        time.sleep(3)
 
-        # print(url)
+        wd = self.wd
+        # we = self.we
+        zzz = {'Финал': [{'id': 'g_1_2iFXsPBF', 'tour': 'Финал', 'time': '20.05. 21:00', 'home': 'Анжи', 'away': 'Енисей ', 'score': '4 : 3', 'url': 'https://www.myscore.com.ua/match/2iFXsPBF/#match-summary'}, {'id': 'g_1_UDoUtqRL', 'tour': 'Финал', 'time': '20.05. 18:00', 'home': 'Тамбов', 'away': 'Амкар ', 'score': '0 : 1', 'url': 'https://www.myscore.com.ua/match/UDoUtqRL/#match-summary'}, {'id': 'g_1_O0GTr5d9', 'tour': 'Финал', 'time': '17.05. 17:30', 'home': 'Амкар', 'away': 'Тамбов', 'score': '2 : 0', 'url': 'https://www.myscore.com.ua/match/O0GTr5d9/#match-summary'}, {'id': 'g_1_UwHPqos3', 'tour': 'Финал', 'time': '17.05. 15:00', 'home': 'Енисей', 'away': 'Анжи', 'score': '3 : 0', 'url': 'https://www.myscore.com.ua/match/UwHPqos3/#match-summary'}]}
+        url = zzz['Финал'][1]['url']
+        self.open_page(url)
+        time.sleep(2)
+        info = wd.find_elements_by_class_name('detailMS')
+        # info = wd.find_elements_by_tag_name('div')
+        len_info = len(info)
+        ttt = info[0].get_attribute('innerHTML')
+        print('len_info', len_info)
+        print('info: ==',  info)
+        print('ttt: ==',  ttt)
+
+        # print('kkk:==', kkk)
 
 
     def tour_data(self, tbody):
@@ -100,7 +112,7 @@ class test_league(unittest.TestCase):
         internals['away'] = away
         internals['score'] = score
         internals['url'] = url
-        match = {id: internals}
+        # match = {id: internals}
 
         print('Начало в:', start_time)
         print('Team home:', home)
@@ -110,7 +122,8 @@ class test_league(unittest.TestCase):
         print('Url на матч:', url)
         # if id[4:] == '0jHHqppJ':
         #     self.open_page('https://www.myscore.com.ua/football/russia/premier-league-2016-2017')
-        return match
+        # return match
+        return internals
 
 
     def open_page(self, url):
