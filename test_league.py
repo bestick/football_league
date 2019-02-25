@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 from selenium.webdriver.firefox.webdriver import WebDriver
-from selenium.webdriver.firefox.webdriver import WebDriver
-# from selenium.webdriver.firefox.webelement import FirefoxWebElement
-# from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.common.exceptions import NoSuchElementException
 import unittest
+from bs4 import BeautifulSoup
 import time
 
 
@@ -54,18 +52,34 @@ class test_league(unittest.TestCase):
         wd = self.wd
         # we = self.we
         zzz = {'Финал': [{'id': 'g_1_2iFXsPBF', 'tour': 'Финал', 'time': '20.05. 21:00', 'home': 'Анжи', 'away': 'Енисей ', 'score': '4 : 3', 'url': 'https://www.myscore.com.ua/match/2iFXsPBF/#match-summary'}, {'id': 'g_1_UDoUtqRL', 'tour': 'Финал', 'time': '20.05. 18:00', 'home': 'Тамбов', 'away': 'Амкар ', 'score': '0 : 1', 'url': 'https://www.myscore.com.ua/match/UDoUtqRL/#match-summary'}, {'id': 'g_1_O0GTr5d9', 'tour': 'Финал', 'time': '17.05. 17:30', 'home': 'Амкар', 'away': 'Тамбов', 'score': '2 : 0', 'url': 'https://www.myscore.com.ua/match/O0GTr5d9/#match-summary'}, {'id': 'g_1_UwHPqos3', 'tour': 'Финал', 'time': '17.05. 15:00', 'home': 'Енисей', 'away': 'Анжи', 'score': '3 : 0', 'url': 'https://www.myscore.com.ua/match/UwHPqos3/#match-summary'}]}
-        url = zzz['Финал'][1]['url']
+        url = zzz['Финал'][0]['url']
         self.open_page(url)
         time.sleep(2)
         info = wd.find_elements_by_class_name('detailMS')
-        # info = wd.find_elements_by_tag_name('div')
+        # info = wd.find_elements_by_class_name('stage-12')
+
         len_info = len(info)
-        ttt = info[0].get_attribute('innerHTML')
         print('len_info', len_info)
+        ttt = info[0].get_attribute('innerHTML')
+
         print('info: ==',  info)
         print('ttt: ==',  ttt)
+        soup = BeautifulSoup(ttt, 'html.parser')
+        p1_away = soup.find('span', class_= 'p1_away')
+        p2_away = soup.find('span', class_='p2_away')
+        print('p1_away: ==', p1_away.text, 'p2_away: ==', p2_away.text)
 
+        # kkk = ttt.find_elements_by_class_name('detailMS__incidentsHeader stage-12')
+        #
         # print('kkk:==', kkk)
+        # body_html = wd.find_element_by_xpath("/html/body")
+        # body_html = wd.page_source
+        # ddd = body_html.find_elements_by_class_name('detailMS')
+        # print(ddd)
+
+        # print('body_html <==', body_html)
+
+
 
 
     def tour_data(self, tbody):
