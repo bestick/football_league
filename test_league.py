@@ -77,11 +77,18 @@ class test_league(unittest.TestCase):
 
             name_class = divs[ij].get('class')
             print(ij, name_class)
-
+        cnt = 0
         for ij in range(len_divs - 1, 0, -1):
             name_class = divs[ij].get('class')
             if name_class == None:
                 print(ij, 'ura!!!')
+            elif type(name_class) == list and len(name_class) == 1:
+                print(ij, 'list!!!')
+            elif type(name_class) == list and len(name_class) > 1 and name_class[0][:18] == 'detailMS__incident':
+                cnt = cnt + 1
+                print(ij, name_class, cnt)
+            else:
+                print(ij, '=======Паршиво!!!')
 
         zzz = divs[66].get('class')
         print('type(zzz)', type(zzz), zzz, 'len(zzz)', len(zzz))
