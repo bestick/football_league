@@ -59,44 +59,14 @@ class test_league(unittest.TestCase):
         inner = r[0].get_attribute('innerHTML')
         wd.close()
         divs = BeautifulSoup(inner, 'lxml').find_all('div')
-        len_divs = len(divs)
-        print( 'type(divs)', type(divs), 'len(divs)', len_divs, 'dir(divs)', dir(divs))
-        name_class = divs[1].get('class')
-        print('1:==', name_class)
-        # for ij in range(len_divs - 1, 0, -1):
-        #
-        #     name_class = divs[ij].get('class')
-        #     print(ij, name_class)
-        # cnt = 0
-        # for ij in range(len_divs - 1, 0, -1):
-        #     name_class = divs[ij].get('class')
-        #     if name_class == None:
-        #         print(ij, 'ura!!!')
-        #     elif type(name_class) == list and len(name_class) == 1:
-        #         print(ij, 'list!!!')
-        #     elif type(name_class) == list and len(name_class) > 1 and name_class[0][:18] == 'detailMS__incident':
-        #         cnt = cnt + 1
-        #         print(ij, name_class, cnt)
-        #     else:
-        #         print(ij, '=======Паршиво!!!')
 
-        cnt = 0
-        for ij in range(len_divs - 1, 0, -1):
+        for ij in range(len(divs) - 1, 0, -1):
             name_class = divs[ij].get('class')
-            if type(name_class) == list and len(name_class) > 1 and name_class[0][:18] == 'detailMS__incident':
-                cnt = cnt + 1
-                print('----------------', divs[ij])
-                # print(ij, name_class, cnt)
-            else:
-                # print('++++',divs[ij])
+            if not(type(name_class) == list and len(name_class) > 1 and name_class[0][:18] == 'detailMS__incident'):
                 del divs[ij]
 
-        print( 'len(divs)', len(divs))
         for ij in range(len(divs)):
             print(ij, divs[ij])
-
-
-
 
 
     def tour_data(self, tbody):
