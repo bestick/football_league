@@ -50,85 +50,51 @@ class test_league(unittest.TestCase):
         import requests
         from bs4 import BeautifulSoup
         url = 'https://www.myscore.com.ua/match/8rkygV3B/#match-summary'
-        # r = requests.get(url).text
-
-        # div = soup.find('div', class_ = 'detailMS')
-        # print('zzz :==', soup)
         wd = self.wd
-        # we = self.we
-        # zzz = {'Финал': [{'id': 'g_1_2iFXsPBF', 'tour': 'Финал', 'time': '20.05. 21:00', 'home': 'Анжи', 'away': 'Енисей ', 'score': '4 : 3', 'url': 'https://www.myscore.com.ua/match/2iFXsPBF/#match-summary'}, {'id': 'g_1_UDoUtqRL', 'tour': 'Финал', 'time': '20.05. 18:00', 'home': 'Тамбов', 'away': 'Амкар ', 'score': '0 : 1', 'url': 'https://www.myscore.com.ua/match/UDoUtqRL/#match-summary'}, {'id': 'g_1_O0GTr5d9', 'tour': 'Финал', 'time': '17.05. 17:30', 'home': 'Амкар', 'away': 'Тамбов', 'score': '2 : 0', 'url': 'https://www.myscore.com.ua/match/O0GTr5d9/#match-summary'}, {'id': 'g_1_UwHPqos3', 'tour': 'Финал', 'time': '17.05. 15:00', 'home': 'Енисей', 'away': 'Анжи', 'score': '3 : 0', 'url': 'https://www.myscore.com.ua/match/UwHPqos3/#match-summary'}]}
-        # url = zzz['Финал'][0]['url']
         self.open_page(url)
         time.sleep(2)
         # r = wd.find_element_by_id('detailMS')
         r = wd.find_elements_by_id('summary-content')
-        print('type(r)', type(r), 'len(r)', len(r))
-
-        ttt = r[0].get_attribute('innerHTML')
+        # print('type(r)', type(r), 'len(r)', len(r))
+        inner = r[0].get_attribute('innerHTML')
         wd.close()
-        # print('ttt:== ', ttt)
-        #
-        divs = BeautifulSoup(ttt, 'lxml').find_all('div')
+        divs = BeautifulSoup(inner, 'lxml').find_all('div')
         len_divs = len(divs)
         print( 'type(divs)', type(divs), 'len(divs)', len_divs, 'dir(divs)', dir(divs))
         name_class = divs[1].get('class')
         print('1:==', name_class)
-        for ij in range(len_divs - 1, 0, -1):
+        # for ij in range(len_divs - 1, 0, -1):
+        #
+        #     name_class = divs[ij].get('class')
+        #     print(ij, name_class)
+        # cnt = 0
+        # for ij in range(len_divs - 1, 0, -1):
+        #     name_class = divs[ij].get('class')
+        #     if name_class == None:
+        #         print(ij, 'ura!!!')
+        #     elif type(name_class) == list and len(name_class) == 1:
+        #         print(ij, 'list!!!')
+        #     elif type(name_class) == list and len(name_class) > 1 and name_class[0][:18] == 'detailMS__incident':
+        #         cnt = cnt + 1
+        #         print(ij, name_class, cnt)
+        #     else:
+        #         print(ij, '=======Паршиво!!!')
 
-            name_class = divs[ij].get('class')
-            print(ij, name_class)
         cnt = 0
         for ij in range(len_divs - 1, 0, -1):
             name_class = divs[ij].get('class')
-            if name_class == None:
-                print(ij, 'ura!!!')
-            elif type(name_class) == list and len(name_class) == 1:
-                print(ij, 'list!!!')
-            elif type(name_class) == list and len(name_class) > 1 and name_class[0][:18] == 'detailMS__incident':
+            if type(name_class) == list and len(name_class) > 1 and name_class[0][:18] == 'detailMS__incident':
                 cnt = cnt + 1
-                print(ij, name_class, cnt)
+                print('----------------', divs[ij])
+                # print(ij, name_class, cnt)
             else:
-                print(ij, '=======Паршиво!!!')
+                # print('++++',divs[ij])
+                del divs[ij]
 
-        zzz = divs[66].get('class')
-        print('type(zzz)', type(zzz), zzz, 'len(zzz)', len(zzz))
+        print( 'len(divs)', len(divs))
+        for ij in range(len(divs)):
+            print(ij, divs[ij])
 
-
-
-        #     try:
-        #         name_class = divs[ij].get('class')
-        #         print(name_class)
-        #         if type(name_class) != list or name_class[0][:18] == 'detailMS__incident':
-        #             del divs[ij]
-        #     except:
-        #         del divs[ij]
-        # print('len(divs)', len(divs))
-
-        # info = wd.find_elements_by_class_name('stage-12')
-
-        # len_info = len(info)
-        # print('len_info', len_info)
-        # ttt = info[0].get_attribute('innerHTML')
-        #
-        # print('info: ==', info)
-
-        # soup = BeautifulSoup(ttt, 'html.parser')
-        # p1_away = soup.find('span', class_= 'p1_away')
-        # p2_away = soup.find('span', class_= 'p2_away')
-        # print('p1_away: ==', p1_away.text, 'p2_away: ==', p2_away.text)
-        #
-        # div = soup.find('div')
-        # print('Type div:== ', 'div=', div)
-
-        # kkk = ttt.find_elements_by_class_name('detailMS__incidentsHeader stage-12')
-        #
-        # print('kkk:==', kkk)
-        # body_html = wd.find_element_by_xpath("/html/body")
-        # body_html = wd.page_source
-        # ddd = body_html.find_elements_by_class_name('detailMS')
-        # print(ddd)
-
-        # print('body_html <==', body_html)
 
 
 
