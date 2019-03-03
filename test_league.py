@@ -23,50 +23,59 @@ class test_league(unittest.TestCase):
 
     def test_league(self):
         wd = self.wd
-        self.open_page('https://www.myscore.com.ua/football/russia/premier-league-2017-2018')
+        self.open_page('https://www.myscore.com.ua/football/russia/premier-league-2017-2018', 2)
         while self.is_link_text_present('Показать больше матчей'):
             time.sleep(1)
 
-        # zzcc = wd.find_element_by_class_name('fs-table tournament-page')
-        # lll = zzcc.get_attribute('innerHTML')
-        # print('len zzcc:', len(zzcc))
-
-
         tables = wd.find_elements_by_class_name('soccer')
-        # lll = tables[0].get_attribute('innerHTML')
         print('len tables:', len(tables))
 
         season = []
         for ij in range(1,len(tables)):
             tbody = tables[ij].find_element_by_tag_name('tbody')
-            # lll = tbody.get_attribute('innerHTML')
-            # print('xxxx======', lll)
             season.append(self.tour_data(tbody))
         print(season[0])
         print(season[1])
 
 
     def test_match(self):
-        import requests
+        # import requests
         from bs4 import BeautifulSoup
-        url = 'https://www.myscore.com.ua/match/8rkygV3B/#match-summary'
+
+        match = {'FH':{}, 'SH':{}}
         wd = self.wd
-        self.open_page(url)
-        time.sleep(2)
-        # r = wd.find_element_by_id('detailMS')
-        r = wd.find_elements_by_id('summary-content')
-        # print('type(r)', type(r), 'len(r)', len(r))
-        inner = r[0].get_attribute('innerHTML')
+        self.open_page('https://www.myscore.com.ua/match/8rkygV3B/#match-summary', 2)
+        r = wd.find_element_by_id('summary-content').get_attribute('innerHTML')
         wd.close()
-        divs = BeautifulSoup(inner, 'lxml').find_all('div')
 
-        for ij in range(len(divs) - 1, 0, -1):
-            name_class = divs[ij].get('class')
-            if not(type(name_class) == list and len(name_class) > 1 and name_class[0][:18] == 'detailMS__incident'):
-                del divs[ij]
+        ##########################
+        divs = BeautifulSoup(r, 'lxml').div.contents
+        print('type(divs)', type(divs), 'len(divs)', len(divs))
 
-        for ij in range(len(divs)):
-            print(ij, divs[ij])
+        # for ij in range(len(divs)):
+        #     print(ij, divs[ij])
+        print(self.parse_row(divs[3]))
+
+    def parse_row(self, line):
+        # time_box = line.find('div', class_ = 'time-box').text
+
+
+        tmp = line.get('class')
+        if tmp[0] == 'detailMS__incidentRow':
+            team = (tmp[1].split('--'))[1]
+
+        elif tmp[0] == 'detailMS__incidentsHeader':
+            isFH = True
+        else:
+            pass
+
+        time_box = line.find('div', class_='time-box').text
+        event = line.contents
+        event_name = (event[1].get('class'))[1]
+        participant_name = line.find('a').text
+        zzz = 1
+        zzz = zzz + 1
+        return participant_name
 
 
     def tour_data(self, tbody):
@@ -127,9 +136,10 @@ class test_league(unittest.TestCase):
         return internals
 
 
-    def open_page(self, url):
+    def open_page(self, url, pause=1):
         wd = self.wd
         wd.get(url)
+        time.sleep(pause)
 
     def tearDown(self):
         self.wd.quit()
