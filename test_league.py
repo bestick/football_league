@@ -42,7 +42,7 @@ class test_league(unittest.TestCase):
         # import requests
         from bs4 import BeautifulSoup
 
-        match = {'FH':{}, 'SH':{}}
+        match, isFH  = {'FH':{}, 'SH':{}}, True
         wd = self.wd
         self.open_page('https://www.myscore.com.ua/match/8rkygV3B/#match-summary', 2)
         r = wd.find_element_by_id('summary-content').get_attribute('innerHTML')
@@ -54,28 +54,27 @@ class test_league(unittest.TestCase):
 
         # for ij in range(len(divs)):
         #     print(ij, divs[ij])
-        print(self.parse_row(divs[3]))
+        print(self.parse_row(divs[6]))
+
 
     def parse_row(self, line):
-        # time_box = line.find('div', class_ = 'time-box').text
-
+        row = [{'stage': ''}, {}]
 
         tmp = line.get('class')
         if tmp[0] == 'detailMS__incidentRow':
             team = (tmp[1].split('--'))[1]
-
+            time_box = line.find('div', class_='time-box').text
+            event_name = ((line.contents)[1].get('class'))[1]
+            participant_name = line.find('a').text
         elif tmp[0] == 'detailMS__incidentsHeader':
-            isFH = True
+            stage = tmp[1]
+            zzz = (line.contents)[1].text
+
         else:
             pass
 
-        time_box = line.find('div', class_='time-box').text
-        event = line.contents
-        event_name = (event[1].get('class'))[1]
-        participant_name = line.find('a').text
-        zzz = 1
-        zzz = zzz + 1
-        return participant_name
+
+        return zzz
 
 
     def tour_data(self, tbody):
