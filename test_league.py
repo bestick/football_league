@@ -37,17 +37,19 @@ class test_league(unittest.TestCase):
         print(season[0])
         print(season[1])
 
-
-    def test_match(self):
+    def test_match(self, id = 'z7poAt22'):
         # import requests
         from bs4 import BeautifulSoup
 
         fh, sh, is_fh  = [], [], True
         wd = self.wd
         # self.open_page('https://www.myscore.com.ua/match/veVP9R8C/#match-summary', 2)
-        self.open_page('https://www.myscore.com.ua/match/z7poAt22/#match-summary', 2)
+        url = 'https://www.myscore.com.ua/match/' + id + '/#match-summary'
+        self.open_page(url , 2)
+        # self.open_page('https://www.myscore.com.ua/match/z7poAt22/#match-summary', 2)
+
         r = wd.find_element_by_id('summary-content').get_attribute('innerHTML')
-        wd.close()
+        # wd.close()
 
         ##########################
         divs = BeautifulSoup(r, 'lxml').div.contents
@@ -71,13 +73,18 @@ class test_league(unittest.TestCase):
                 else:
                     sh.append(roow[1])
 
-        # print(fh)
-        # print('====================')
-        # print(sh)
         match = {'fh': fh, 'sh': sh}
         print(match['fh'])
         print('====================')
         print(match['sh'])
+
+    def test_tour(self):
+        ids = ['no4jlauq', 'StL7dNX2', 'U5HOhuXR', 'ljM3c3Id']
+
+        for id in ids:
+            self.test_match(id)
+
+        # print('Ura!!!!!!!!!!!!!!!')
 
     def parse_row(self, line):
         row, inners = [], dict()
