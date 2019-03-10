@@ -42,9 +42,10 @@ class test_league(unittest.TestCase):
         # import requests
         from bs4 import BeautifulSoup
 
-        match, isFH  = {'FH':{}, 'SH':{}}, True
+        fh, sh, is_fh  = [], [], True
         wd = self.wd
-        self.open_page('https://www.myscore.com.ua/match/8rkygV3B/#match-summary', 2)
+        # self.open_page('https://www.myscore.com.ua/match/veVP9R8C/#match-summary', 2)
+        self.open_page('https://www.myscore.com.ua/match/z7poAt22/#match-summary', 2)
         r = wd.find_element_by_id('summary-content').get_attribute('innerHTML')
         wd.close()
 
@@ -52,30 +53,81 @@ class test_league(unittest.TestCase):
         divs = BeautifulSoup(r, 'lxml').div.contents
         print('type(divs)', type(divs), 'len(divs)', len(divs))
 
-        # for ij in range(len(divs)):
-        #     print(ij, divs[ij])
-        print(self.parse_row(divs[6]))
+        for ij in range(len(divs)):
+            roow = self.parse_row(divs[ij])
+            # print(ij, roow)
 
+            stage = roow[0]['stage']
+            if stage == '':
+                if is_fh:
+                    fh.append(roow[1])
+                else:
+                    sh.append(roow[1])
+
+            else:
+                is_fh = False if stage == '2-й тайм' else True
+                if is_fh:
+                    fh.append(roow[1])
+                else:
+                    sh.append(roow[1])
+
+        # print(fh)
+        # print('====================')
+        # print(sh)
+        match = {'fh': fh, 'sh': sh}
+        print(match['fh'])
+        print('====================')
+        print(match['sh'])
 
     def parse_row(self, line):
-        row = [{'stage': ''}, {}]
-
+        row, inners = [], dict()
         tmp = line.get('class')
-        if tmp[0] == 'detailMS__incidentRow':
-            team = (tmp[1].split('--'))[1]
-            time_box = line.find('div', class_='time-box').text
-            event_name = ((line.contents)[1].get('class'))[1]
-            participant_name = line.find('a').text
+        if tmp[0] == 'detailMS__incidentRow' and tmp[1] != '--empty':
+            row.append({'stage': ''})
+            row.append(self.get_inners(line, tmp[1]))
+
         elif tmp[0] == 'detailMS__incidentsHeader':
-            stage = tmp[1]
-            zzz = (line.contents)[1].text
+            stage = line.div.text
+            score = (line.contents)[1].find_all('span')
+            score_h = score[0].text.replace('\n', '')
+            score_a = score[1].text.replace('\n', '')
 
+            row.append({'stage': stage})
+            row.append({'score_h': score_h, 'score_a': score_a})
+        elif tmp[0] == 'detailMS__incidentRow' and tmp[1] == '--empty':
+            inners['empty odd'] = ''
+            row.append({'stage': ''})
+            row.append(inners)
         else:
-            pass
+            print('!!!  Вне ЗОНЫ ВЕРХНЕГО УРОВНЯ   !!!!!!!!!!!!!')
 
+        return row
 
-        return zzz
+    def get_inners(self, line, team):
+        inners = dict()
+        event = ((line.contents)[1].get('class'))[1]
+        inners['team'] = (team.split('--'))[1]
+        inners['time_box'] = line.div.text
+        inners['event'] = event
+        if event in ['y-card', 'yr-card', 'r-card']:
+            inners['participant'] = line.find('a').text
+        elif event == 'soccer-ball':
+            inners['participant'] = self.find_sp(line, "participant-name", False)
+            inners['assist'] = self.find_sp(line, "assist note-name")
+            inners['subincident'] = self.find_sp(line, "subincident-name")
+        elif event == 'substitution-in':
+            inners['substitution-in'] = self.find_sp(line, "substitution-in-name", False)
+            inners['substitution-out'] = (self.find_sp(line, "substitution-out-name", False)).replace('\xa0', '')
+        elif event in ['soccer-ball-own', 'penalty-missed']:
+            inners['note'] = self.find_sp(line, "note-name")
+            inners['participant'] = line.find('a').text
+        else:
+            print('!!!  Вне ЗОНЫ !!!!!!!!!!!!!')
+        return inners
 
+    def find_sp(self, line, name, isHooks = True):
+        tmp = line.find('span', class_= name)
+        return '' if tmp == None else tmp.text[1:-1] if isHooks else tmp.text
 
     def tour_data(self, tbody):
         tours = {}
@@ -127,13 +179,8 @@ class test_league(unittest.TestCase):
         print('Team home:', home)
         print('Team away:', away)
         print('Счет:', score)
-        # https: // www.myscore.com.ua / match / 0jHHqppJ /  # match-summary
         print('Url на матч:', url)
-        # if id[4:] == '0jHHqppJ':
-        #     self.open_page('https://www.myscore.com.ua/football/russia/premier-league-2016-2017')
-        # return match
         return internals
-
 
     def open_page(self, url, pause=1):
         wd = self.wd
@@ -145,6 +192,3 @@ class test_league(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-
-
