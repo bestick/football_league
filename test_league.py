@@ -34,10 +34,25 @@ class test_league(unittest.TestCase):
         for ij in range(1,len(tables)):
             tbody = tables[ij].find_element_by_tag_name('tbody')
             season.append(self.tour_data(tbody))
-        print(season[0])
+        # print(season[0])
+        # print(season[1])    # {'Тур30: [{'id': '2iFXsPBF'}] }
+        # id = []
+        for key in season[1]:
+            w_tour = season[1][key]
+            for idx in range(len(w_tour)):
+                # id.append(w_tour[idx]['id'])
+                w_fh, w_sh = self.test_match(w_tour[idx]['id'])
+                # season[1][key][idx]['fh'], season[1][key][idx]['sh'] = self.test_match(w_tour[idx]['id'])
+                season[1][key][idx]['fh'], season[1][key][idx]['sh'] = w_fh, w_sh
+            print(season[1])
+
+
+            # for idx in id:
+            #     season[1][key][idx]['fh'], season[1][key][idx]['sh'] = self.test_match(idx)
+
         print(season[1])
 
-    def test_match(self, id = 'z7poAt22'):
+    def test_match(self, id = 'IX0q2It4'):
         # import requests
         from bs4 import BeautifulSoup
 
@@ -72,19 +87,22 @@ class test_league(unittest.TestCase):
                     fh.append(roow[1])
                 else:
                     sh.append(roow[1])
+        print(fh)
+        print(sh)
+        return fh, sh
 
-        match = {'fh': fh, 'sh': sh}
-        print(match['fh'])
-        print('====================')
-        print(match['sh'])
+        # match = {'fh': fh, 'sh': sh}
+        # print(match['fh'])
+        # print('====================')
+        # print(match['sh'])
 
-    def test_tour(self):
-        ids = ['no4jlauq', 'StL7dNX2', 'U5HOhuXR', 'ljM3c3Id']
+    # def test_tour(self, ids):
+    #     # ids = ['no4jlauq', 'StL7dNX2', 'U5HOhuXR', 'ljM3c3Id']
+    #
+    #     for id in ids:
+    #         self.test_match(id)
+    #     return
 
-        for id in ids:
-            self.test_match(id)
-
-        # print('Ura!!!!!!!!!!!!!!!')
 
     def parse_row(self, line):
         row, inners = [], dict()
@@ -117,7 +135,10 @@ class test_league(unittest.TestCase):
         inners['time_box'] = line.div.text
         inners['event'] = event
         if event in ['y-card', 'yr-card', 'r-card']:
-            inners['participant'] = line.find('a').text
+            try:
+                inners['participant'] = line.find('a').text
+            except AttributeError:
+                inners['participant'] = self.find_sp(line, "participant-name", False)
         elif event == 'soccer-ball':
             inners['participant'] = self.find_sp(line, "participant-name", False)
             inners['assist'] = self.find_sp(line, "assist note-name")
@@ -163,14 +184,14 @@ class test_league(unittest.TestCase):
         print('===========')
         print('Имя класса tr:', tr.get_attribute('class'))
         print('Тур:', name)
-        id = tr.get_attribute('id')
+        id = tr.get_attribute('id')[4:]
         print('id матча:', id)
         td_s = tr.find_elements_by_tag_name('td')
         start_time = td_s[1].text
         home = td_s[2].find_element_by_tag_name('span').text
         away = td_s[3].find_element_by_tag_name('span').text
         score = td_s[4].text
-        url = 'https://www.myscore.com.ua/match/' + id[4:] + '/#match-summary'
+        # url = 'https://www.myscore.com.ua/match/' + id[4:] + '/#match-summary'
 
         internals = {}
         internals['id'] = id
@@ -179,14 +200,14 @@ class test_league(unittest.TestCase):
         internals['home'] = home
         internals['away'] = away
         internals['score'] = score
-        internals['url'] = url
+        # internals['url'] = url
         # match = {id: internals}
 
-        print('Начало в:', start_time)
-        print('Team home:', home)
-        print('Team away:', away)
-        print('Счет:', score)
-        print('Url на матч:', url)
+        # print('Начало в:', start_time)
+        # print('Team home:', home)
+        # print('Team away:', away)
+        # print('Счет:', score)
+        # print('Url на матч:', url)
         return internals
 
     def open_page(self, url, pause=1):
