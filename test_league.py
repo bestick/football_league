@@ -3,6 +3,9 @@ from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.common.exceptions import NoSuchElementException
 import unittest
 import time
+import json
+import os.path as op
+from datetime import datetime
 
 
 class test_league(unittest.TestCase):
@@ -22,37 +25,39 @@ class test_league(unittest.TestCase):
             return False
 
     def test_league(self):
+        url = 'https://www.myscore.com.ua/football/russia/premier-league-2016-2017'
+        season = self.get_season(url)
+        file = 'e:/5/rfpl 2016_17_ru.json'
+        self.save_json(file, season[1])
+
+        # for ik in range(len(season)):
+        #     for key in season[ik]:
+        #         w_tour = season[ik][key]
+        #         for idx in range(len(w_tour)):
+        #             w_fh, w_sh = self.test_match(w_tour[idx]['id'])
+        #             season[ik][key][idx]['fh'], season[ik][key][idx]['sh'] = w_fh, w_sh
+        #         print(season[ik])
+        #
+        #
+        # with open('season_1.json', 'w', encoding='utf-8') as fh:  # открываем файл на запись
+        #     fh.write(json.dumps(season[1], ensure_ascii=False))  # преобразовываем словарь data в unicode-строку и записываем в файл
+
+    def get_season(self, url):
         wd = self.wd
-        self.open_page('https://www.myscore.com.ua/football/russia/premier-league-2017-2018', 2)
+        self.open_page(url, 2)
+        # self.open_page('https://www.myscore.com.ua/football/russia/premier-league-2017-2018', 2)
+        # self.open_page('https://www.myscore.com.ua/football/england/premier-league-2017-2018/', 2)
         while self.is_link_text_present('Показать больше матчей'):
-            time.sleep(1)
-
+            time.sleep(3)
         tables = wd.find_elements_by_class_name('soccer')
-        print('len tables:', len(tables))
-
+        # print('len tables:', len(tables))
         season = []
-        for ij in range(1,len(tables)):
+        for ij in range(1, len(tables)):
             tbody = tables[ij].find_element_by_tag_name('tbody')
             season.append(self.tour_data(tbody))
-        # print(season[0])
-        # print(season[1])    # {'Тур30: [{'id': '2iFXsPBF'}] }
-        # id = []
-        for key in season[1]:
-            w_tour = season[1][key]
-            for idx in range(len(w_tour)):
-                # id.append(w_tour[idx]['id'])
-                w_fh, w_sh = self.test_match(w_tour[idx]['id'])
-                # season[1][key][idx]['fh'], season[1][key][idx]['sh'] = self.test_match(w_tour[idx]['id'])
-                season[1][key][idx]['fh'], season[1][key][idx]['sh'] = w_fh, w_sh
-            print(season[1])
+        return season
 
-
-            # for idx in id:
-            #     season[1][key][idx]['fh'], season[1][key][idx]['sh'] = self.test_match(idx)
-
-        print(season[1])
-
-    def test_match(self, id = 'IX0q2It4'):
+    def test_match(self, id = 'jkcJ3GaI'):
         # import requests
         from bs4 import BeautifulSoup
 
@@ -91,18 +96,23 @@ class test_league(unittest.TestCase):
         print(sh)
         return fh, sh
 
-        # match = {'fh': fh, 'sh': sh}
-        # print(match['fh'])
-        # print('====================')
-        # print(match['sh'])
+    def test_fill_season(self, file = 'e:/5/rfpl 2016_17_ru.json'):
+        file, maxi = 'e:/5/rfpl 2016_17_ru.json', 32
+        if op.isfile(file):
+            season = self.open_json(file)
+            now = datetime.now()
+            suffi = '_' + now.strftime("%Y%m%d_%H%M") + '.json'
+            self.save_json(file.replace('.json', suffi), season)
+            id_list = self.select_id(season, maxi)
+            print(id_list)
+            for idx in range(len(id_list)):
+                w_fh, w_sh = self.test_match(id_list[idx])
+                season[ik][key][idx]['fh'], season[ik][key][idx]['sh'] = w_fh, w_sh
 
-    # def test_tour(self, ids):
-    #     # ids = ['no4jlauq', 'StL7dNX2', 'U5HOhuXR', 'ljM3c3Id']
-    #
-    #     for id in ids:
-    #         self.test_match(id)
-    #     return
+            #############################################################################################
 
+        else:
+            print('==================')
 
     def parse_row(self, line):
         row, inners = [], dict()
@@ -180,10 +190,6 @@ class test_league(unittest.TestCase):
 
     def match_data(self, tr, name):
 
-        print('')
-        print('===========')
-        print('Имя класса tr:', tr.get_attribute('class'))
-        print('Тур:', name)
         id = tr.get_attribute('id')[4:]
         print('id матча:', id)
         td_s = tr.find_elements_by_tag_name('td')
@@ -191,29 +197,34 @@ class test_league(unittest.TestCase):
         home = td_s[2].find_element_by_tag_name('span').text
         away = td_s[3].find_element_by_tag_name('span').text
         score = td_s[4].text
-        # url = 'https://www.myscore.com.ua/match/' + id[4:] + '/#match-summary'
 
-        internals = {}
-        internals['id'] = id
-        internals['tour'] = name
-        internals['time'] = start_time
-        internals['home'] = home
-        internals['away'] = away
-        internals['score'] = score
-        # internals['url'] = url
-        # match = {id: internals}
+        return {'id': id, 'tour': name, 'time': start_time, 'home': home, 'away': away, 'score': score.replace(' : ', ':')}
 
-        # print('Начало в:', start_time)
-        # print('Team home:', home)
-        # print('Team away:', away)
-        # print('Счет:', score)
-        # print('Url на матч:', url)
-        return internals
+    def select_id(self, season, maxi):
+        ij = 0
+        id_list = []
+        for key in season:
+            for idx in range(len(season[key])):
+                id_tour = season[key][idx]
+                if 'fh' not in id_tour:
+                    id_list.append(id_tour['id'])
+                    ij = ij + 1
+                if ij == maxi:
+                    return id_list
+        return id_list
 
     def open_page(self, url, pause=1):
         wd = self.wd
         wd.get(url)
         time.sleep(pause)
+
+    def open_json(self, file):
+        with open(file, 'r', encoding='utf-8') as fh:     # открываем файл на чтение
+            return json.load(fh)                                                        # загружаем из файла данные в словарь data
+
+    def save_json(self, name, data):
+        with open(name, 'w', encoding='utf-8') as fh:               # открываем файл на запись
+            fh.write(json.dumps(data, ensure_ascii=False))          # преобразовываем словарь data в unicode-строку и записываем в файл
 
     def tearDown(self):
         self.wd.quit()
