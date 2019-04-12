@@ -12,35 +12,35 @@
     <session id="1353031255">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="60" />
+          <entry key="project.closed" value="83" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.10" value="4" />
-          <entry key="project.open.time.5" value="2" />
-          <entry key="project.open.time.6" value="34" />
-          <entry key="project.open.time.7" value="20" />
-          <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="62" />
+          <entry key="project.open.time.5" value="3" />
+          <entry key="project.open.time.6" value="50" />
+          <entry key="project.open.time.7" value="26" />
+          <entry key="project.open.time.8" value="2" />
+          <entry key="project.opened" value="86" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="47" />
+          <entry key="py" value="54" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="47" />
+          <entry key="Python" value="54" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="Python Console" value="97" />
-          <entry key="py" value="6482" />
+          <entry key="py" value="6952" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="6579" />
+          <entry key="Python" value="7049" />
         </counts>
       </usages-collector>
     </session>
@@ -50,14 +50,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test_league.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-407">
-              <caret line="101" column="41" selection-start-line="101" selection-start-column="41" selection-end-line="101" selection-end-column="41" />
+            <state relative-caret-position="-3326">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
               <folding>
                 <element signature="e#24#82#0" expanded="true" />
-                <marker date="1554263312448" expanded="true" signature="3518:4236" ph="..." />
-                <marker date="1554263312448" expanded="true" signature="6439:6569" ph="..." />
-                <marker date="1554263312448" expanded="true" signature="7793:8164" ph="..." />
-                <marker date="1554263312448" expanded="true" signature="8551:8560" ph="..." />
+                <marker date="1555040284067" expanded="true" signature="3004:3895" ph="..." />
+                <marker date="1555040284067" expanded="true" signature="6098:6228" ph="..." />
+                <marker date="1555040284067" expanded="true" signature="7467:7859" ph="..." />
+                <marker date="1555040284067" expanded="true" signature="8246:8255" ph="..." />
               </folding>
             </state>
           </provider>
@@ -76,6 +76,7 @@
     <findStrings>
       <find>\</find>
       <find>match</find>
+      <find>match_data</find>
     </findStrings>
     <replaceStrings>
       <replace>.</replace>
@@ -89,6 +90,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/create_league.py" />
+        <option value="E:/pyCharmProjects/testForDebug/add_season_01.py" />
         <option value="$PROJECT_DIR$/test_league.py" />
       </list>
     </option>
@@ -99,7 +101,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1620" />
@@ -113,7 +115,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/test_league.py" />
+    <property name="last_opened_file_path" value="E:/pyCharmProjects/testForDebug/add_season_01.py" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RunDashboard">
@@ -128,7 +130,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python tests.pytest for test_league.test_league.test_fill_season">
+  <component name="RunManager" selected="Python tests.pytest for test_league.test_league.test_league">
     <configuration name="pytest for test_league.test_league.test_fill_season" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="football_league" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -260,9 +262,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.pytest for test_league.test_league.test_fill_season" />
         <item itemvalue="Python tests.pytest for test_league.test_league.test_league" />
         <item itemvalue="Python tests.pytest for test_league.test_league.test_match" />
+        <item itemvalue="Python tests.pytest for test_league.test_league.test_fill_season" />
         <item itemvalue="Python tests.pytest for test_league.test_league.test_league.test_x" />
         <item itemvalue="Python tests.pytest for test_league.test_league.test_league.test_tour" />
       </list>
@@ -282,47 +284,48 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_for_test_league_test_league_test_fill_season - 2019.04.02 at 21h 36m 07s.xml">
-      <configuration name="pytest for test_league.test_league.test_fill_season" configurationId="tests" />
+    <history-entry file="pytest_for_test_league_test_league_test_league - 2019.04.10 at 19h 46m 02s.xml">
+      <configuration name="pytest for test_league.test_league.test_league" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_league_test_league_test_fill_season - 2019.04.03 at 05h 21m 10s.xml">
-      <configuration name="pytest for test_league.test_league.test_fill_season" configurationId="tests" />
+    <history-entry file="pytest_for_test_league_test_league_test_league - 2019.04.10 at 19h 49m 23s.xml">
+      <configuration name="pytest for test_league.test_league.test_league" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_league_test_league_test_fill_season - 2019.04.03 at 05h 22m 19s.xml">
-      <configuration name="pytest for test_league.test_league.test_fill_season" configurationId="tests" />
+    <history-entry file="pytest_for_test_league_test_league_test_league - 2019.04.10 at 19h 51m 38s.xml">
+      <configuration name="pytest for test_league.test_league.test_league" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_league_test_league_test_fill_season - 2019.04.03 at 05h 38m 15s.xml">
-      <configuration name="pytest for test_league.test_league.test_fill_season" configurationId="tests" />
+    <history-entry file="pytest_for_test_league_test_league_test_league - 2019.04.10 at 19h 53m 34s.xml">
+      <configuration name="pytest for test_league.test_league.test_league" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_league_test_league_test_fill_season - 2019.04.03 at 06h 09m 28s.xml">
-      <configuration name="pytest for test_league.test_league.test_fill_season" configurationId="tests" />
+    <history-entry file="pytest_for_test_league_test_league_test_league - 2019.04.10 at 19h 59m 07s.xml">
+      <configuration name="pytest for test_league.test_league.test_league" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_league_test_league_test_fill_season - 2019.04.03 at 06h 10m 19s.xml">
-      <configuration name="pytest for test_league.test_league.test_fill_season" configurationId="tests" />
+    <history-entry file="pytest_for_test_league_test_league_test_league - 2019.04.10 at 20h 00m 52s.xml">
+      <configuration name="pytest for test_league.test_league.test_league" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_league_test_league_test_fill_season - 2019.04.03 at 06h 14m 24s.xml">
-      <configuration name="pytest for test_league.test_league.test_fill_season" configurationId="tests" />
+    <history-entry file="pytest_for_test_league_test_league_test_league - 2019.04.10 at 22h 01m 29s.xml">
+      <configuration name="pytest for test_league.test_league.test_league" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_league_test_league_test_fill_season - 2019.04.03 at 06h 15m 02s.xml">
-      <configuration name="pytest for test_league.test_league.test_fill_season" configurationId="tests" />
+    <history-entry file="pytest_for_test_league_test_league_test_league - 2019.04.10 at 22h 11m 59s.xml">
+      <configuration name="pytest for test_league.test_league.test_league" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_league_test_league_test_fill_season - 2019.04.03 at 06h 27m 45s.xml">
-      <configuration name="pytest for test_league.test_league.test_fill_season" configurationId="tests" />
+    <history-entry file="pytest_for_test_league_test_league_test_league - 2019.04.10 at 22h 15m 41s.xml">
+      <configuration name="pytest for test_league.test_league.test_league" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_league_test_league_test_fill_season - 2019.04.03 at 06h 28m 24s.xml">
-      <configuration name="pytest for test_league.test_league.test_fill_season" configurationId="tests" />
+    <history-entry file="pytest_for_test_league_test_league_test_league - 2019.04.10 at 22h 19m 50s.xml">
+      <configuration name="pytest for test_league.test_league.test_league" configurationId="tests" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1620" height="920" extended-state="0" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.24968395" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.32909784" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32909784" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39898348" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32839838" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.42261103" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -363,13 +366,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
           <caret line="107" selection-start-line="107" selection-end-line="107" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/env/Lib/site-packages/selenium/webdriver/remote/webelement.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="632" selection-start-line="632" selection-end-line="632" />
         </state>
       </provider>
     </entry>
@@ -415,6 +411,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://E:/pyCharmProjects/testForDebug/add_season_01.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="799">
+          <caret line="71" column="16" selection-start-line="71" selection-start-column="16" selection-end-line="71" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://C:/Tools/Python36-32/Lib/unittest/case.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
@@ -422,16 +425,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/env/Lib/site-packages/selenium/webdriver/remote/webelement.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="75" selection-start-line="75" selection-end-line="75" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test_league.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-407">
-          <caret line="101" column="41" selection-start-line="101" selection-start-column="41" selection-end-line="101" selection-end-column="41" />
+        <state relative-caret-position="-3326">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
           <folding>
             <element signature="e#24#82#0" expanded="true" />
-            <marker date="1554263312448" expanded="true" signature="3518:4236" ph="..." />
-            <marker date="1554263312448" expanded="true" signature="6439:6569" ph="..." />
-            <marker date="1554263312448" expanded="true" signature="7793:8164" ph="..." />
-            <marker date="1554263312448" expanded="true" signature="8551:8560" ph="..." />
+            <marker date="1555040284067" expanded="true" signature="3004:3895" ph="..." />
+            <marker date="1555040284067" expanded="true" signature="6098:6228" ph="..." />
+            <marker date="1555040284067" expanded="true" signature="7467:7859" ph="..." />
+            <marker date="1555040284067" expanded="true" signature="8246:8255" ph="..." />
           </folding>
         </state>
       </provider>

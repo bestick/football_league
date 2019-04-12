@@ -7,7 +7,6 @@ import json
 import os.path as op
 from datetime import datetime
 
-
 class test_league(unittest.TestCase):
 
     def setUp(self):
@@ -25,26 +24,15 @@ class test_league(unittest.TestCase):
             return False
 
     def test_league(self):
-        url = 'https://www.myscore.com.ua/football/russia/premier-league-2016-2017'
+        # url = 'https://www.myscore.com.ua/football/russia/premier-league-2015-2016'
+        url = 'https://www.myscore.com.ua/football/england/premier-league-2013-2014'
         season = self.get_season(url)
-        file = 'e:/5/rfpl 2016_17_ru.json'
-        self.save_json(file, season[1])
-
-        # for ik in range(len(season)):
-        #     for key in season[ik]:
-        #         w_tour = season[ik][key]
-        #         for idx in range(len(w_tour)):
-        #             w_fh, w_sh = self.test_match(w_tour[idx]['id'])
-        #             season[ik][key][idx]['fh'], season[ik][key][idx]['sh'] = w_fh, w_sh
-        #         print(season[ik])
-        #
-        #
-        # with open('season_1.json', 'w', encoding='utf-8') as fh:  # открываем файл на запись
-        #     fh.write(json.dumps(season[1], ensure_ascii=False))  # преобразовываем словарь data в unicode-строку и записываем в файл
+        file = 'e:/5/PremierLeague 2013_14_en.json'
+        self.save_json(file, season[0])
 
     def get_season(self, url):
         wd = self.wd
-        self.open_page(url, 2)
+        self.open_page(url, 3)
         # self.open_page('https://www.myscore.com.ua/football/russia/premier-league-2017-2018', 2)
         # self.open_page('https://www.myscore.com.ua/football/england/premier-league-2017-2018/', 2)
         while self.is_link_text_present('Показать больше матчей'):
@@ -57,7 +45,7 @@ class test_league(unittest.TestCase):
             season.append(self.tour_data(tbody))
         return season
 
-    def test_match(self, id = 'jkcJ3GaI'):
+    def test_match(self, id = 'zmQQ0OC9'):
         # import requests
         from bs4 import BeautifulSoup
 
@@ -65,7 +53,7 @@ class test_league(unittest.TestCase):
         wd = self.wd
         # self.open_page('https://www.myscore.com.ua/match/veVP9R8C/#match-summary', 2)
         url = 'https://www.myscore.com.ua/match/' + id + '/#match-summary'
-        self.open_page(url , 2)
+        self.open_page(url , 3)
         # self.open_page('https://www.myscore.com.ua/match/z7poAt22/#match-summary', 2)
 
         r = wd.find_element_by_id('summary-content').get_attribute('innerHTML')
@@ -96,8 +84,8 @@ class test_league(unittest.TestCase):
         print(sh)
         return fh, sh
 
-    def test_fill_season(self, file = 'e:/5/rfpl 2016_17_ru.json'):
-        file, maxi = 'e:/5/rfpl 2016_17_ru.json', 32
+    def test_fill_season(self, file='e:/5/PremierLeague 2016_17_en.json'):
+        file, maxi = 'e:/5/PremierLeague 2013_14_en.json', 20
         if op.isfile(file):
             season = self.open_json(file)
             now = datetime.now()
@@ -106,13 +94,19 @@ class test_league(unittest.TestCase):
             id_list = self.select_id(season, maxi)
             print(id_list)
             for idx in range(len(id_list)):
-                w_fh, w_sh = self.test_match(id_list[idx])
-                season[ik][key][idx]['fh'], season[ik][key][idx]['sh'] = w_fh, w_sh
+                id_val = id_list[idx]['id']
+                id_key = id_list[idx]['tour']
+                id_num = id_list[idx]['num']
+                w_fh, w_sh = self.test_match(id_val)
+                if w_fh != []:
+                    season[id_key][id_num]['fh'] = w_fh
+                if w_sh != []:
+                    season[id_key][id_num]['sh'] = w_sh
 
-            #############################################################################################
+            self.save_json(file, season)
 
         else:
-            print('==================')
+            print('Подложи файл в нужное место!')
 
     def parse_row(self, line):
         row, inners = [], dict()
@@ -168,7 +162,7 @@ class test_league(unittest.TestCase):
         return '' if tmp == None else tmp.text[1:-1] if isHooks else tmp.text
 
     def tour_data(self, tbody):
-        tours = {}
+        tours, round_name = {}, ''
         tr_s = tbody.find_elements_by_tag_name('tr')
         for ij in range(len(tr_s)):
             class_name = tr_s[ij].get_attribute('class')
@@ -179,7 +173,6 @@ class test_league(unittest.TestCase):
                 tours[round_name].append(self.match_data(tr_s[ij], round_name))
             elif class_name == 'event_round':
                 round_name = tr_s[ij].text
-
                 print(' ')
                 print('-----------------------')
                 print('event_round:== ', round_name)
@@ -201,14 +194,13 @@ class test_league(unittest.TestCase):
         return {'id': id, 'tour': name, 'time': start_time, 'home': home, 'away': away, 'score': score.replace(' : ', ':')}
 
     def select_id(self, season, maxi):
-        ij = 0
-        id_list = []
+        id_list, ij = [], 0
         for key in season:
             for idx in range(len(season[key])):
                 id_tour = season[key][idx]
                 if 'fh' not in id_tour:
-                    id_list.append(id_tour['id'])
-                    ij = ij + 1
+                    id_list.append({'id': id_tour['id'], 'tour': key, 'num': idx})
+                    ij += 1
                 if ij == maxi:
                     return id_list
         return id_list
